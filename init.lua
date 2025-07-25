@@ -700,6 +700,13 @@ require('lazy').setup({
           },
         },
         pylsp = {},
+        ruff = {
+          init_options = {
+            settings = {
+              logLevel = 'info',
+            },
+          },
+        },
         terraformls = {},
       }
 
@@ -719,8 +726,7 @@ require('lazy').setup({
       local ensure_installed = vim.tbl_keys(servers or {})
       vim.list_extend(ensure_installed, {
         'stylua', -- Used to format Lua code
-        'black',
-        'isort',
+        'ruff',
         'tflint',
       })
       require('mason-tool-installer').setup { ensure_installed = ensure_installed }
@@ -775,7 +781,7 @@ require('lazy').setup({
       formatters_by_ft = {
         lua = { 'stylua' },
         -- Conform can also run multiple formatters sequentially
-        python = { 'isort', 'black' },
+        python = { 'ruff_format', 'ruff_organize_imports' },
         --
         -- You can use 'stop_after_first' to run the first available formatter from the list
         -- javascript = { "prettierd", "prettier", stop_after_first = true },
